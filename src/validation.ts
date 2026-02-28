@@ -27,6 +27,16 @@ const app = new Elysia()
       })
     }
   )
+
+  app.get("/search",
+    ({ query }) => query,
+    {
+      query: t.Object({
+        keyword: t.String(),
+        page: t.Optional(t.Number())
+      })
+    }
+  )
   .listen(3000);
 
 console.log(`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`);
