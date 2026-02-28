@@ -49,6 +49,21 @@ const app = new Elysia()
     })
   }    
   )
+
+  app.get("/ping",
+    () => {
+      return {
+        success: true,
+        message: "Server OK"
+      }
+    },
+    {
+      response: t.Object({
+        success: t.Boolean(),
+        message: t.String()
+      })
+    }
+  )
   .listen(3000);
 
 console.log(`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`);
