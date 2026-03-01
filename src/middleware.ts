@@ -83,23 +83,32 @@ app.onError(({ code, error, set }) => {
     set.status = 400
     return {
       success: false,
-      message: "Validation Error",
-      detail: error.message
+      error: "Validation Error"
     }
   }
 
   if (code === "NOT_FOUND") {
     set.status = 404
     return {
-      message: "Route not found"
+      error: "Route not found"
     }
   }
 
   set.status = 500
   return {
-    message: "Internal Server Error"
+    error: "Internal Server Error"
   }
   })
-  
+
+app.post("/login",
+  ({ body }) => body,
+  {
+    body: t.Object({
+      email: t.String({ format: "email" }),
+      password: t.String({ minLength: 8 })
+    })
+  }
+  )
+
 app.listen(3000)
 console.log("Server running at http://localhost:3000")
